@@ -20,11 +20,12 @@ import {
 	BoxProps,
 } from "@chakra-ui/react"
 import { FaFolderOpen, FaGithub, FaMoon, FaSun, FaWindowClose } from "react-icons/fa"
+import { useSession, signIn, signOut } from "next-auth/react"
 
-type NavLink = {name: string, url: string, icon?: ReactElement}
-const Links = [
+type NavLink = {name: string, url: string, newPage?: boolean, icon?: ReactElement}
+const Links: NavLink[] = [
 	{name: "Projects", url: "/projects"},
-	{name: "View Source", url: "https://github.com/JMPJNS/jmp.blue", icon: <FaGithub/>}
+	{name: "View Source", url: "https://github.com/JMPJNS/jmp.blue", icon: <FaGithub/>, newPage: true}
 ]
 
 const NavLink = ({ children }: { children: NavLink }) => {
@@ -39,16 +40,77 @@ const NavLink = ({ children }: { children: NavLink }) => {
 				bg: useColorModeValue("gray.200", "gray.700"),
 			}}
 			as="a"
-			href={children.url ?? "#"}>
+			href={children.url ?? "#"}
+			target={children.newPage ? "_blank" : "_self"}>
 			{children.name}
 		</Button>
 	)}
 
-function Nav(props: BoxProps) {
-	const { isOpen, onOpen, onClose } = useDisclosure()
-
+function UserMenu() {
+	const {data: session} = useSession()
 	const {colorMode, toggleColorMode} = useColorMode()
 	const isDark = colorMode === "dark"
+
+	if (session) {
+		return (
+			<Menu>
+				<MenuButton
+					as={Button}
+					rounded={"full"}
+					variant={"link"}
+					cursor={"pointer"}
+					_focus={{boxShadow: "none"}}
+					minW={0}>
+					<Avatar
+						ml="8"
+						size={"sm"}
+						src={
+							"https://avatars.githubusercontent.com/u/21279685?v=4"
+						}
+					/>
+				</MenuButton>
+				<MenuList>
+					<MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
+					<MenuItem onClick={toggleColorMode}>
+						<HStack>
+							<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
+							<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
+						</HStack>
+					</MenuItem>
+				</MenuList>
+			</Menu>
+		)}
+	else {
+		return (
+			<Menu>
+				<MenuButton
+					as={Button}
+					rounded={"full"}
+					variant={"link"}
+					cursor={"pointer"}
+					_focus={{boxShadow: "none"}}
+					minW={0}>
+					<Avatar
+						ml="8"
+						size={"sm"}
+					/>
+				</MenuButton>
+				<MenuList>
+					<MenuItem onClick={() => signIn()}>Sign In</MenuItem>
+					<MenuItem onClick={toggleColorMode}>
+						<HStack>
+							<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
+							<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
+						</HStack>
+					</MenuItem>
+				</MenuList>
+			</Menu>
+		)
+	}
+}
+
+function Nav(props: BoxProps) {
+	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	return (
 		<Box bg={useColorModeValue("gray.100", "gray.900")} px={4} {...props}>
@@ -76,30 +138,7 @@ function Nav(props: BoxProps) {
 					</HStack>
 				</HStack>
 				<Flex alignItems={"center"}>
-					<Menu>
-						<MenuButton
-							as={Button}
-							rounded={"full"}
-							variant={"link"}
-							cursor={"pointer"}
-							minW={0}>
-							<Avatar
-								ml="8"
-								size={"sm"}
-								src={
-									"https://avatars.githubusercontent.com/u/21279685?v=4"
-								}
-							/>
-						</MenuButton>
-						<MenuList>
-							<MenuItem onClick={toggleColorMode}>
-								<HStack>
-									<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
-									<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
-								</HStack>
-							</MenuItem>
-						</MenuList>
-					</Menu>
+					<UserMenu></UserMenu>
 				</Flex>
 			</Flex>
 
