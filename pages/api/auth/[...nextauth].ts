@@ -1,4 +1,5 @@
-import NextAuth from "next-auth"
+import NextAuth, { Awaitable, Session } from "next-auth"
+import { JWT } from "next-auth/jwt"
 import KeycloakProvider from "next-auth/providers/keycloak"
 
 export default NextAuth({
@@ -11,4 +12,12 @@ export default NextAuth({
 			issuer: "https://keycloak.jmp.blue/auth/realms/jmp.blue"
 		})
 	],
+	callbacks: {
+		session(params): Awaitable<Session> {
+			return params.session
+		},
+		jwt(params): Awaitable<JWT> {
+			return params.token
+		}
+	}
 })

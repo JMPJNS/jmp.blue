@@ -52,6 +52,9 @@ function UserMenu() {
 	const isDark = colorMode === "dark"
 
 	if (session) {
+		console.log(session)
+		const hash = (s: string) => s.split("").reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
+		const avatarUrl = session.user?.image ?? `https://www.gravatar.com/avatar/${hash(session.user?.name ?? "username")}`
 		return (
 			<Menu>
 				<MenuButton
@@ -65,7 +68,7 @@ function UserMenu() {
 						ml="8"
 						size={"sm"}
 						src={
-							"https://avatars.githubusercontent.com/u/21279685?v=4"
+							avatarUrl
 						}
 					/>
 				</MenuButton>
