@@ -7,7 +7,7 @@ export default NextAuth({
 		// OAuth authentication providers
 		KeycloakProvider({
 			clientId: "jmp.blue",
-			clientSecret: process.env.KEYCLOAK_SECRET,
+			clientSecret: process.env.KEYCLOAK_SECRET!,
 			issuer: "https://keycloak.jmp.blue/auth/realms/jmp.blue"
 		})
 	],
