@@ -42,7 +42,7 @@ const NavLink = ({ children }: { children: NavLink }) => {
 			href={children.url ?? "#"}>
 			{children.name}
 		</Button>
-)}
+	)}
 
 function Nav(props: BoxProps) {
 	const { isOpen, onOpen, onClose } = useDisclosure()
@@ -51,68 +51,68 @@ function Nav(props: BoxProps) {
 	const isDark = colorMode === "dark"
 
 	return (
-			<Box bg={useColorModeValue("gray.100", "gray.900")} px={4} {...props}>
-				<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-					<IconButton
-						size={"sm"}
-						icon={isOpen ? <Icon as={FaWindowClose} /> : <Icon as={FaFolderOpen} />}
-						aria-label={"Open Menu"}
-						display={{ md: "none" }}
-						onClick={isOpen ? onClose : onOpen}
-					/>
-					<HStack spacing={8} alignItems={"center"}>
-						<Box>
-							<Heading size="md" fontWeight="semibold" color="blue.400">
+		<Box bg={useColorModeValue("gray.100", "gray.900")} px={4} {...props}>
+			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+				<IconButton
+					size={"sm"}
+					icon={isOpen ? <Icon as={FaWindowClose} /> : <Icon as={FaFolderOpen} />}
+					aria-label={"Open Menu"}
+					display={{ md: "none" }}
+					onClick={isOpen ? onClose : onOpen}
+				/>
+				<HStack spacing={8} alignItems={"center"}>
+					<Box>
+						<Heading size="md" fontWeight="semibold" color="blue.400">
 								JMP.blue
-							</Heading>
-						</Box>
-						<HStack
-							as={"nav"}
-							spacing={4}
-							display={{ base: "none", md: "flex" }}>
-							{Links.map((link) => (
-								<NavLink key={link.name}>{link}</NavLink>
-							))}
-						</HStack>
-					</HStack>
-					<Flex alignItems={"center"}>
-						<Menu>
-							<MenuButton
-								as={Button}
-								rounded={"full"}
-								variant={"link"}
-								cursor={"pointer"}
-								minW={0}>
-								<Avatar
-									ml="8"
-									size={"sm"}
-									src={
-										"https://avatars.githubusercontent.com/u/21279685?v=4"
-									}
-								/>
-							</MenuButton>
-							<MenuList>
-								<MenuItem onClick={toggleColorMode}>
-									<HStack>
-										<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
-										<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
-									</HStack>
-								</MenuItem>
-							</MenuList>
-						</Menu>
-					</Flex>
-				</Flex>
-
-				{isOpen ? (
-					<Box pb={4} display={{ md: "none" }}>
-						<Stack as={"nav"} spacing={4}>
-							{Links.map((link) => (
-								<NavLink key={link.name}>{link}</NavLink>
-							))}
-						</Stack>
+						</Heading>
 					</Box>
-				) : null}
-			</Box>
+					<HStack
+						as={"nav"}
+						spacing={4}
+						display={{ base: "none", md: "flex" }}>
+						{Links.map((link) => (
+							<NavLink key={link.name}>{link}</NavLink>
+						))}
+					</HStack>
+				</HStack>
+				<Flex alignItems={"center"}>
+					<Menu>
+						<MenuButton
+							as={Button}
+							rounded={"full"}
+							variant={"link"}
+							cursor={"pointer"}
+							minW={0}>
+							<Avatar
+								ml="8"
+								size={"sm"}
+								src={
+									"https://avatars.githubusercontent.com/u/21279685?v=4"
+								}
+							/>
+						</MenuButton>
+						<MenuList>
+							<MenuItem onClick={toggleColorMode}>
+								<HStack>
+									<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
+									<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
+								</HStack>
+							</MenuItem>
+						</MenuList>
+					</Menu>
+				</Flex>
+			</Flex>
+
+			{isOpen ? (
+				<Box pb={4} display={{ md: "none" }}>
+					<Stack as={"nav"} spacing={4}>
+						{Links.map((link) => (
+							<NavLink key={link.name}>{link}</NavLink>
+						))}
+					</Stack>
+				</Box>
+			) : null}
+		</Box>
 	)
 }
 
