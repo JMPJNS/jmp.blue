@@ -99,7 +99,7 @@ function UserMenu() {
 					/>
 				</MenuButton>
 				<MenuList>
-					<MenuItem onClick={() => signIn()}>Sign In</MenuItem>
+					<MenuItem onClick={() => signIn(["keycloak"] as any)}>Sign In / Sign Up</MenuItem>
 					<MenuItem onClick={toggleColorMode}>
 						<HStack>
 							<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
