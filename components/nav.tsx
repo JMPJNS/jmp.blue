@@ -73,7 +73,9 @@ function UserMenu() {
 					/>
 				</MenuButton>
 				<MenuList>
-					<MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
+					<MenuItem onClick={() => signOut({
+						callbackUrl: "/api/auth/logout",
+					})}>Sign Out</MenuItem>
 					<MenuItem onClick={toggleColorMode}>
 						<HStack>
 							<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
