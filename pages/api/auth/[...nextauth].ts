@@ -9,7 +9,7 @@ export default NextAuth({
 		KeycloakProvider({
 			clientId: "jmp.blue",
 			clientSecret: process.env.KEYCLOAK_SECRET!,
-			issuer: "https://keycloak.jmp.blue/auth/realms/jmp.blue"
+			issuer: "https://keycloak.jmp.blue/realms/jmp.blue"
 		})
 	],
 	callbacks: {
