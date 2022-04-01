@@ -123,6 +123,7 @@ function Nav(props: BoxProps) {
 					icon={isOpen ? <Icon as={FaWindowClose} /> : <Icon as={FaFolderOpen} />}
 					aria-label={"Open Menu"}
 					display={{ md: "none" }}
+					_focus={{boxShadow: "none"}}
 					onClick={isOpen ? onClose : onOpen}
 				/>
 				<HStack spacing={8} alignItems={"center"}>
