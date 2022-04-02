@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react"
+import { ReactElement } from "react"
 import {
 	Box,
 	Flex,
@@ -53,67 +53,43 @@ function UserMenu() {
 	const {colorMode, toggleColorMode} = useColorMode()
 	const isDark = colorMode === "dark"
 
-	if (session) {
-		console.log(session)
-		const hash = (s: string) => s.split("").reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
-		const avatarUrl = session.user?.image ?? `https://www.gravatar.com/avatar/${hash(session.user?.name ?? "username")}`
-		return (
-			<Menu>
-				<MenuButton
-					as={Button}
-					rounded={"full"}
-					variant={"link"}
-					cursor={"pointer"}
-					_focus={{boxShadow: "none"}}
-					minW={0}>
-					<Avatar
-						ml="8"
-						size={"sm"}
-						src={
-							avatarUrl
-						}
-					/>
-				</MenuButton>
-				<MenuList>
-					<MenuItem onClick={() => signOut({
-						callbackUrl: "/api/auth/logout",
-					})}>Sign Out</MenuItem>
-					<MenuItem onClick={toggleColorMode}>
-						<HStack>
-							<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
-							<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
-						</HStack>
-					</MenuItem>
-				</MenuList>
-			</Menu>
-		)}
-	else {
-		return (
-			<Menu>
-				<MenuButton
-					as={Button}
-					rounded={"full"}
-					variant={"link"}
-					cursor={"pointer"}
-					_focus={{boxShadow: "none"}}
-					minW={0}>
-					<Avatar
-						ml="8"
-						size={"sm"}
-					/>
-				</MenuButton>
-				<MenuList>
-					<MenuItem onClick={() => signIn(["keycloak"] as any)}>Sign In / Sign Up</MenuItem>
-					<MenuItem onClick={toggleColorMode}>
-						<HStack>
-							<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
-							<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
-						</HStack>
-					</MenuItem>
-				</MenuList>
-			</Menu>
-		)
-	}
+	console.log(session)
+
+	const hash = (s: string) => s.split("").reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
+	const avatarUrl = session ? session.user?.image ?? `https://www.gravatar.com/avatar/${hash(session.user?.name ?? "username")}` : ""
+	return (
+		<Menu>
+			<MenuButton
+				as={Button}
+				rounded={"full"}
+				variant={"link"}
+				cursor={"pointer"}
+				_focus={{boxShadow: "none"}}
+				minW={0}>
+				<Avatar
+					ml="8"
+					size={"sm"}
+					src={
+						avatarUrl
+					}
+				/>
+			</MenuButton>
+			<MenuList>
+				{
+					session === null
+						? <MenuItem onClick={() => signIn(["keycloak"] as any)}>Sign In / Sign Up</MenuItem>
+						: <MenuItem onClick={() => signOut({callbackUrl: "/api/auth/logout"})}>Sign Out</MenuItem>
+				}
+				<MenuDivider/>
+				<MenuItem onClick={toggleColorMode}>
+					<HStack>
+						<Box>Color Theme: {isDark ? "Dark" : "Light"}</Box>
+						<Box>{isDark ? <FaMoon/> : <FaSun/>}</Box>	
+					</HStack>
+				</MenuItem>
+			</MenuList>
+		</Menu>
+	)
 }
 
 function Nav(props: BoxProps) {
