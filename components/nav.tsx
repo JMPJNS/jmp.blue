@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react"
 import { FaFolderOpen, FaGithub, FaMoon, FaSun, FaWindowClose } from "react-icons/fa"
 import { useSession, signIn, signOut } from "next-auth/react"
+import Link from "next/link"
 
 type NavLink = {name: string, url: string, newPage?: boolean, icon?: ReactElement}
 const Links: NavLink[] = [
@@ -30,20 +31,21 @@ const Links: NavLink[] = [
 
 const NavLink = ({ children }: { children: NavLink }) => {
 	return (
-		<Button
-			leftIcon={children.icon}
-			px={2}
-			py={1}
-			rounded={"md"}
-			_hover={{
-				textDecoration: "none",
-				bg: useColorModeValue("gray.200", "gray.700"),
-			}}
-			as="a"
-			href={children.url ?? "#"}
-			target={children.newPage ? "_blank" : "_self"}>
-			{children.name}
-		</Button>
+		<Link passHref href={children.url ?? "#"}>
+			<Button
+				leftIcon={children.icon}
+				px={2}
+				py={1}
+				rounded={"md"}
+				_hover={{
+					textDecoration: "none",
+					bg: useColorModeValue("gray.200", "gray.700"),
+				}}
+				as="a"
+				target={children.newPage ? "_blank" : "_self"}>
+				{children.name}
+			</Button>
+		</Link>
 	)}
 
 function UserMenu() {
@@ -131,7 +133,7 @@ function Nav(props: BoxProps) {
 				<HStack spacing={8} alignItems={"center"}>
 					<Box>
 						<Heading size="md" fontWeight="semibold" color="blue.400">
-								JMP.blue
+							<Link href="/">JMP.blue</Link>
 						</Heading>
 					</Box>
 					<HStack
