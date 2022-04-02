@@ -10,6 +10,7 @@ specifiers:
   eslint: 8.12.0
   eslint-config-next: 12.1.4
   framer-motion: ^6
+  jwt-decode: ^3.1.2
   next: 12.1.4
   next-auth: ^4.3.1
   react: 18.0.0
@@ -22,6 +23,7 @@ dependencies:
   '@emotion/react': 11.8.2_00a11a054056e3746b551a83b9229751
   '@emotion/styled': 11.8.1_99e6c630d8f9e4aaf14c79d0138a2fa8
   framer-motion: 6.2.8_react-dom@18.0.0+react@18.0.0
+  jwt-decode: 3.1.2
   next: 12.1.4_react-dom@18.0.0+react@18.0.0
   next-auth: 4.3.1_react-dom@18.0.0+react@18.0.0
   react: 18.0.0
@@ -2380,6 +2382,10 @@ packages:
       array-includes: 3.1.4
       object.assign: 4.1.2
     dev: true
+
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
+    dev: false
 
   /language-subtag-registry/0.3.21:
     resolution: {integrity: sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg==}

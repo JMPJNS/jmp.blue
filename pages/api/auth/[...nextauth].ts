@@ -1,5 +1,6 @@
 import NextAuth, { Awaitable, Session } from "next-auth"
 import { JWT } from "next-auth/jwt"
+import jwt_decode from "jwt-decode"
 import KeycloakProvider from "next-auth/providers/keycloak"
 import GithubProvider from "next-auth/providers/github"
 import DiscordProvider from "next-auth/providers/discord"
@@ -23,10 +24,18 @@ export default NextAuth({
 		})
 	],
 	callbacks: {
-		session(params): Awaitable<Session> {
+		session(params: any): Awaitable<Session> {
+			if (params.session.user) {
+				params.session.user.roles = params.token.roles
+			}
 			return params.session
 		},
 		jwt(params): Awaitable<JWT> {
+			const token = params.account?.access_token
+			if (token) {
+				const decoded = jwt_decode(token) as any
+				params.token.roles = decoded.realm_access.roles ?? []
+			}
 			return params.token
 		}
 	},
