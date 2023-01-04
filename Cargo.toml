@@ -1,0 +1,18 @@
+[package]
+name = "jmp_blue"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = { version = "0.6.1" }
+lazy_static = "1.4.0"
+serde = { version = "1.0.152", features = ["derive"] }
+askama = "0.11.1"
+tokio = { version = "1.23.1", features = ["full"] }
+tower = { version = "0.4.13", features = ["util", "timeout"] }
+tower-http = { version = "0.3.5", features = ["add-extension", "trace"] }
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
+uuid = { version = "1.2.2", features = ["serde", "v4"] }
